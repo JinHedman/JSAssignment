@@ -7,6 +7,9 @@ document.getElementById("mealInput").addEventListener("keyup", (event) => {
   }
 });
 
+// Add filter event listener
+document.getElementById("categoryFilter").addEventListener("change", filterByCategory);
+
 function renderMeals(meals) {
   const resultDiv = document.getElementById("mealResult");
   
@@ -49,16 +52,23 @@ function searchMeal() {
     });
 }
 
-// Store meals data for modal access
+// Store meals data for modal access and filtering
 let currentMeals = [];
+let allMeals = [];
 
-function renderMeals(meals) {
+function renderMeals(meals, filtered = false) {
   const resultDiv = document.getElementById("mealResult");
   currentMeals = meals; // Store meals for modal access
   
-  if (meals) {
+  if (!filtered) {
+    allMeals = meals; // Store all meals for filtering
+    populateCategoryFilter(meals);
+  }
+  
+  if (meals && meals.length > 0) {
+    const countText = filtered ? `${meals.length} of ${allMeals.length} meal(s)` : `${meals.length} meal(s)`;
     resultDiv.innerHTML = `
-      <h2>Found ${meals.length} meal(s):</h2>
+      <h2>Found ${countText}:</h2>
       <div class="meals-container">
         ${meals.map(meal => `
           <div class="meal-card" onclick="showMealDetails('${meal.idMeal}')">
@@ -73,6 +83,37 @@ function renderMeals(meals) {
     `;
   } else {
     resultDiv.innerHTML = "<p>No meals found. Try another name!</p>";
+  }
+}
+
+function populateCategoryFilter(meals) {
+  const categoryFilter = document.getElementById("categoryFilter");
+  
+  // Get unique categories
+  const categories = [...new Set(meals.map(meal => meal.strCategory))].sort();
+  
+  // Clear existing options (except "All Categories")
+  categoryFilter.innerHTML = '<option value="">All Categories</option>';
+  
+  // Add category options
+  categories.forEach(category => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    categoryFilter.appendChild(option);
+  });
+}
+
+function filterByCategory() {
+  const selectedCategory = document.getElementById("categoryFilter").value;
+  
+  if (!selectedCategory) {
+    // Show all meals
+    renderMeals(allMeals, true);
+  } else {
+    // Filter meals by category
+    const filteredMeals = allMeals.filter(meal => meal.strCategory === selectedCategory);
+    renderMeals(filteredMeals, true);
   }
 }
 

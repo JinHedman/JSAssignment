@@ -44,6 +44,11 @@ h1 {
   font-weight: 300;
 }
 
+/* Search controls styling */
+.search-controls {
+  margin-bottom: 20px;
+}
+
 /* Input styling */
 #mealInput {
   padding: 12px 20px;
@@ -79,6 +84,41 @@ h1 {
 
 #searchBtn:active {
   transform: translateY(0);
+}
+
+/* Filter controls styling */
+.filter-controls {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.filter-controls label {
+  font-weight: 500;
+  color: #333;
+  font-size: 16px;
+}
+
+#categoryFilter {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  background-color: white;
+  outline: none;
+  transition: border-color 0.3s ease;
+  min-width: 200px;
+  cursor: pointer;
+}
+
+#categoryFilter:focus {
+  border-color: #2196F3;
+}
+
+#categoryFilter:hover {
+  border-color: #bbb;
 }
 
 /* Meal results styling */

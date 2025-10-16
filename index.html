@@ -25,8 +25,17 @@
 <div class="meal-search-container">
   <h1>Meal Search</h1>
   
-  <input type="text" id="mealInput" placeholder="Enter meal name..." />
-  <button id="searchBtn">Search</button>
+  <div class="search-controls">
+    <input type="text" id="mealInput" placeholder="Enter meal name..." />
+    <button id="searchBtn">Search</button>
+  </div>
+  
+  <div class="filter-controls">
+    <label for="categoryFilter">Filter by Category:</label>
+    <select id="categoryFilter">
+      <option value="">All Categories</option>
+    </select>
+  </div>
 
   <div id="mealResult"></div>
 </div>
