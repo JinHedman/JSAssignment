@@ -15,7 +15,7 @@ function searchMeal() {
     resultDiv.innerHTML = "<p>Please enter a meal name.</p>";
     return;
   }
-
+  // fetch request with a render
   fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`)
     .then(response => response.json())
     .then(data => {
